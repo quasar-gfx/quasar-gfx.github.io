@@ -194,7 +194,7 @@
             </div>
 
             <div class="text-center col-12 col-md-6 mb-4">
-                <h4>Latency:</h4>
+                <h4>Latency (Single Trip):</h4>
                 <div class="btn-group" role="group" aria-label="Latency Selector">
                     <button class="btn btn-outline-secondary latency-btn" data-latency="20_10ms">20±10 ms</button>
                     <button class="btn btn-outline-secondary latency-btn" data-latency="50_20ms">50±20 ms</button>
@@ -288,7 +288,7 @@
             <!-- Example 4 -->
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
-                    <h4 class="text-center mb-2" id="qs-heading"><strong>QuadStream (50 cm viewcell, box)</strong></h4>
+                    <h4 class="text-center mb-2" id="qs-heading"><strong>QuadStream (50 cm viewcell, box length)</strong></h4>
                 </div>
                 <div id="example4" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -315,7 +315,7 @@
             <!-- Example 5 -->
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
-                    <h4 class="text-center mb-2" id="qr-heading"><strong>QUASAR (50 cm viewcell, sphere)</strong></h4>
+                    <h4 class="text-center mb-2" id="qr-heading"><strong>QUASAR (50 cm viewcell, sphere diamater)</strong></h4>
                 </div>
                 <div id="example5" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -344,8 +344,8 @@
         <div class="container text-center" style="max-width: 1100px;">
             <div class="row">
                 <div class="col-12 col-md-12 mb-12">
-                    Traces above were rendered at a resolution of <strong>1920×1080</strong> at <strong>60 FPS</strong> with a simulated network latency of <strong>20±10 ms (40±20 ms RTT)</strong> (1500 frames each).<br>
-                    Each scene contains image-based lighting, along with <strong>one directional light</strong> and <strong>four point lights</strong>, all of which <strong>cast PCF shadows</strong>. View-dependent lighting is disabled.<br>
+                    Traces above were rendered at a resolution of <strong>1920×1080</strong> at <strong>60 FPS</strong> (1500 frames collected).<br>
+                    Each scene contains image-based lighting, along with one directional light and four point lights, all of which cast PCF shadows. View-dependent lighting is disabled.<br>
                     <br>
                     (Reload the webpage if videos appear out of sync).
                 </div>
@@ -498,8 +498,8 @@
             const qrHeading = document.getElementById('qr-heading');
             const mwResolution = currentFOV === "60" ? "1080p" : "4K";
             mwHeading.innerHTML = `<strong>MeshWarp (${currentFOV}° FOV, ${mwResolution})</strong>`;
-            qsHeading.innerHTML = `<strong>QuadStream (${currentViewcell * 100} cm viewcell, box)</strong>`;
-            qrHeading.innerHTML = `<strong>QUASAR (${currentViewcell * 100} cm viewcell, sphere)</strong>`;
+            qsHeading.innerHTML = `<strong>QuadStream (${currentViewcell * 100} cm viewcell, box length)</strong>`;
+            qrHeading.innerHTML = `<strong>QUASAR (${currentViewcell * 100} cm viewcell, sphere diamater)</strong>`;
         }
 
         document.querySelectorAll('.scene-btn').forEach(btn => {
