@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>QUASAR: Quad-based Adaptive Streaming And Rendering</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="assets/css/bulma-slider.min.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <meta property="og:site_name" content="QUASAR: Quad-based Adaptive Streaming And Rendering" />
+    <meta property="og:type" content="video.other" />
+    <meta property="og:title" content="QUASAR: Quad-based Adaptive Streaming And Rendering" />
+    <meta property="og:description" content="QUASAR: Quad-based Adaptive Streaming And Rendering, 2025." />
+
+    <script src="assets/js/video_comparison.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"></script>
+    <script src="assets/js/bulma-carousel.min.js"></script>
+    <script src="assets/js/bulma-slider.min.js"></script>
+
+    <style>
+        /* 1. Fluid aspect-ratio “before/after” container */
+        .small-bal-container {
+            width: 100%;
+            max-width: 560px;
+            aspect-ratio: 560 / 322;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .small-bal-container img,
+        .small-bal-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 2. Custom carousel arrow tweaks */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid white;
+        }
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border: solid white;
+        }
+        .carousel-control-prev-icon::after {
+            border-width: 0 4px 4px 0;
+            transform: rotate(135deg);
+            margin-left: -3px;
+        }
+        .carousel-control-next-icon::after {
+            border-width: 0 4px 4px 0;
+            transform: rotate(-45deg);
+            margin-right: -3px;
+        }
+
+        /* 3. Minor tweaks on very small screens */
+        @media (max-width: 575.98px) {
+            body {
+                font-size: 0.9rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+            .author-container h6 {
+                font-size: 0.85rem;
+            }
+            .container,
+            .container-fluid {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="highlight-clean pb-3">
+        <div class="container-fluid mb-3">
+            <h1 class="text-center mb-2">
+                <strong>QUASAR</strong>: Quad-based Adaptive Streaming And Rendering
+            </h1>
+        </div>
+
+        <!-- Centered author section -->
+        <div class="container author-container mt-4" style="padding-bottom: 10px;">
+            <div class="row justify-content-center">
+                <div class="col-auto mb-2 text-center">
+                    <h5>
+                        <a href="https://users.ece.cmu.edu/~elu2/">
+                            <strong>Edward Lu</strong>
+                        </a>
+                    </h5>
+                    <h6>Carnegie Mellon University</h6>
+                </div>
+                <div class="col-auto mb-2 text-center">
+                    <h5>
+                        <a href="https://users.ece.cmu.edu/~agr/">
+                            <strong>Anthony Rowe</strong>
+                        </a>
+                    </h5>
+                    <h6>Carnegie Mellon University</h6>
+                </div>
+            </div>
+        </div>
+        <!-- End author section -->
+    </div>
+
+    <div class="container-fluid mb-3" style="padding-bottom: 10px;">
+        <h4 class="text-center mb-2">
+            <strong>ACM Transactions on Graphics (SIGGRAPH 2025)</strong>
+        </h4>
+    </div>
+
+    <div class="container align-items-center">
+        <div class="row text-center justify-content-center">
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="assets/quasar_siggraph_2025.pdf" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/arxiv_paper.png" alt="paper" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Paper (Author's Copy)</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="index.html" class="link-block w-inline-block">
+                    <img src="assets/media/home.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Main Page</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="https://quasar-gfx.github.io/QUASAR/" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/docs.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Docs</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="#" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/video_logo.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Video (Coming Soon)</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="https://github.com/quasar-gfx/QUASAR" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/github.png" alt="github" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Code</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="text-center mb-3">
+        <h1 class="font-weight-bold">Quality Comparisons</h1>
+    </div>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="text-center col-12 col-md-6 mb-4">
+                <h4>Scene:</h4>
+                <div class="btn-group" role="group" aria-label="Scene Selector">
+                    <button class="btn btn-outline-primary scene-btn" data-scene="robot_lab">Robot Lab</button>
+                    <button class="btn btn-outline-primary scene-btn" data-scene="sun_temple">Sun Temple</button>
+                    <button class="btn btn-outline-primary scene-btn" data-scene="viking_village">Viking Village</button>
+                    <button class="btn btn-outline-primary scene-btn" data-scene="san_miguel">San Miguel</button>
+                </div>
+            </div>
+
+            <div class="text-center col-12 col-md-6 mb-4">
+                <h4>Latency:</h4>
+                <div class="btn-group" role="group" aria-label="Latency Selector">
+                    <button class="btn btn-outline-secondary latency-btn" data-latency="20_10ms">20±10 ms</button>
+                    <button class="btn btn-outline-secondary latency-btn" data-latency="50_20ms">50±20 ms</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="text-center col-12 col-md-6 mb-4">
+                <h4>MeshWarp FOV:</h4>
+                <div class="btn-group" role="group" aria-label="FOV Selector">
+                    <button class="btn btn-outline-info fov-btn" data-fov="60">60°</button>
+                    <button class="btn btn-outline-info fov-btn" data-fov="120">120°</button>
+                </div>
+            </div>
+
+            <div class="text-center col-12 col-md-6 mb-4">
+                <h4>Viewcell Size:</h4>
+                <div class="btn-group" role="group" aria-label="Viewcell Selector">
+                    <button class="btn btn-outline-success viewcell-btn" data-viewcell="0.25">25 cm</button>
+                    <button class="btn btn-outline-success viewcell-btn" data-viewcell="0.50">50 cm</button>
+                    <button class="btn btn-outline-success viewcell-btn" data-viewcell="1.00">100 cm</button>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="container-fluid mb-3">
+            <h2 class="text-center mb-2" id="scene-title"><strong>Robot Lab</strong></h2>
+            <h3 class="text-center mb-2" id="scene-description" style="padding-bottom: 25px;">(0.47M triangles, 635 objects, moderate depth complexity)</h3>
+        </div>
+
+        <div class="row">
+            <!-- Example 2 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div class="container-fluid mb-3">
+                    <h4 class="text-center mb-2"><strong>ATW</strong></h4>
+                </div>
+                <div id="example2" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-2" src="assets/videos/20_10ms/robot_lab/flip/atw_simulator.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">FLIP Error</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                            <video id="video-before-2" src="assets/videos/20_10ms/robot_lab/color/atw_simulator.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-2" data-after="video-after-2">Play</button>
+                </div>
+            </div>
+            <!-- Example 3 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div class="container-fluid mb-3">
+                    <h4 class="text-center mb-2" id="mw-heading"><strong>MeshWarp (120° FOV, 4K)</strong></h4>
+                </div>
+                <div id="example3" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-3" src="assets/videos/20_10ms/robot_lab/flip/mw_simulator_120.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">FLIP Error</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                                <video id="video-before-3" src="assets/videos/20_10ms/robot_lab/color/mw_simulator_120.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-3" data-after="video-after-3">Play</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Example 4 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div class="container-fluid mb-3">
+                    <h4 class="text-center mb-2" id="qs-heading"><strong>QuadStream (50 cm viewcell, box)</strong></h4>
+                </div>
+                <div id="example4" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-4" src="assets/videos/20_10ms/robot_lab/flip/qs_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">FLIP Error</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                                <video id="video-before-4" src="assets/videos/20_10ms/robot_lab/color/qs_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-4" data-after="video-after-4">Play</button>
+                </div>
+            </div>
+            <!-- Example 5 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div class="container-fluid mb-3">
+                    <h4 class="text-center mb-2" id="qr-heading"><strong>QUASAR (50 cm viewcell, sphere)</strong></h4>
+                </div>
+                <div id="example5" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-5" src="assets/videos/20_10ms/robot_lab/flip/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">FLIP Error</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                                <video id="video-before-5" src="assets/videos/20_10ms/robot_lab/color/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-5" data-after="video-after-5">Play</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center" style="max-width: 1100px;">
+            <div class="row">
+                <div class="col-12 col-md-12 mb-12">
+                    Traces above were rendered at a resolution of <strong>1920×1080</strong> at <strong>60 FPS</strong> with a simulated network latency of <strong>20±10 ms (40±20 ms RTT)</strong> (1500 frames each).<br>
+                    Each scene contains image-based lighting, along with <strong>one directional light</strong> and <strong>four point lights</strong>, all of which <strong>cast PCF shadows</strong>. View-dependent lighting is disabled.<br>
+                    <br>
+                    (Reload the webpage if videos appear out of sync).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Data Rates</h2>
+                <div class="text-center mb-4">
+                    <img src="assets/data_rates.png" class="img-fluid" alt="Data rates" />
+                </div>
+                <p class="text-justify">
+                    Average data rates of all methods for each trace in our evaluations.
+                    Results for QuadStream and our technique are shown for three different viewcell sizes to highlight the effect of viewcell size on data rate.
+                    Reported values are the average of data rates across both tested latencies.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Choosing the Best Operating Point</h2>
+                <div class="text-center mb-4">
+                    <img src="assets/data_rate_vs_decimation.png" class="img-fluid" alt="Quad merging" />
+                </div>
+                <p class="text-justify">
+                    Effect of quad merging on visual quality and data rate for the Robot Lab scene (w/ 50 cm viewcell).
+                    Trials vary quad merging thresholds, impacting geometric resolution and compression efficiency.
+                    Parameter values between adjacent points differ by a factor of 2.
+                    The chosen operating point (𝛿_sim=0.5 and 𝛿_flatten=0.2) is highlighted.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-4">
+        <hr class="divider" />
+        <h2 class="font-weight-bold">Citation</h2>
+        <code>
+            @article{lu2025quasar,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;title={QUASAR: Quad-based Adaptive Streaming And Rendering},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;author={Lu, Edward and Rowe, Anthony},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;journal={ACM Transactions on Graphics (TOG)},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;volume={44},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;number={4},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;year={2025},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;publisher={ACM New York, NY, USA},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;url={https://doi.org/10.1145/3731213},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;doi={10.1145/3731213},<br>
+            }
+        </code>
+    </div>
+
+    <hr class="divider" />
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p>
+                            This webpage is adapted from <a href="https://trianglesplatting.github.io/">Triangle Splatting</a> and <a href="https://dreamfusion3d.github.io/">DreamFusion</a>.
+                            We sincerely appreciate the authors for open-sourcing their code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script>
+    <script src="assets/js/yall.js"></script>
+    <script>
+        yall({ observeChanges: true });
+    </script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
+
+    <script>
+        new BeforeAfter({ id: '#example2' });
+        new BeforeAfter({ id: '#example3' });
+        new BeforeAfter({ id: '#example4' });
+        new BeforeAfter({ id: '#example5' });
+
+        let currentLatency = "20_10ms";
+        let currentFOV = "120";
+        let currentViewcell = "0.50";
+
+        function getMethods() {
+            const fov = currentFOV;
+            const viewcell = currentViewcell;
+
+            return [
+                { before: 'video-before-2', after: 'video-after-2', name: 'atw_simulator' },
+                { before: 'video-before-3', after: 'video-after-3', name: `mw_simulator_${fov}` },
+                { before: 'video-before-4', after: 'video-after-4', name: `qs_simulator_${viewcell}` },
+                { before: 'video-before-5', after: 'video-after-5', name: `qr_simulator_${viewcell}` },
+            ];
+        }
+
+        const sceneMeta = {
+            robot_lab: {
+                title: "Robot Lab",
+                description: "(0.47M triangles, 635 objects, moderate depth complexity)"
+            },
+            sun_temple: {
+                title: "Sun Temple",
+                description: "(0.6M triangles, 1057 objects, high depth complexity)"
+            },
+            viking_village: {
+                title: "Viking Village",
+                description: "(4.3M triangles, 1266 objects, high depth complexity)"
+            },
+            san_miguel: {
+                title: "San Miguel",
+                description: "(9.9M triangles, 1600 objects, high depth complexity)"
+            }
+        };
+
+        function updateScene(sceneName) {
+            const methods = getMethods();
+            methods.forEach(method => {
+                const beforeEl = document.getElementById(method.before);
+                const afterEl = document.getElementById(method.after);
+
+                beforeEl.src = `assets/videos/${currentLatency}/${sceneName}/color/${method.name}.mp4`;
+                afterEl.src = `assets/videos/${currentLatency}/${sceneName}/flip/${method.name}.mp4`;
+
+                beforeEl.load();
+                afterEl.load();
+            });
+
+            const meta = sceneMeta[sceneName];
+            if (meta) {
+                document.getElementById('scene-title').innerHTML = `<strong>${meta.title}</strong>`;
+                document.getElementById('scene-description').textContent = meta.description;
+            }
+
+            const mwHeading = document.getElementById('mw-heading');
+            const qsHeading = document.getElementById('qs-heading');
+            const qrHeading = document.getElementById('qr-heading');
+            const mwResolution = currentFOV === "60" ? "1080p" : "4K";
+            mwHeading.innerHTML = `<strong>MeshWarp (${currentFOV}° FOV, ${mwResolution})</strong>`;
+            qsHeading.innerHTML = `<strong>QuadStream (${currentViewcell * 100} cm viewcell, box)</strong>`;
+            qrHeading.innerHTML = `<strong>QUASAR (${currentViewcell * 100} cm viewcell, sphere)</strong>`;
+        }
+
+        document.querySelectorAll('.scene-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const scene = btn.getAttribute('data-scene');
+                localStorage.setItem('selectedScene', scene);
+                updateScene(scene);
+
+                document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.latency-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentLatency = btn.getAttribute('data-latency');
+                localStorage.setItem('selectedLatency', currentLatency);
+
+                document.querySelectorAll('.latency-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const activeSceneBtn = document.querySelector('.scene-btn.active');
+                if (activeSceneBtn) {
+                    updateScene(activeSceneBtn.getAttribute('data-scene'));
+                }
+            });
+        });
+
+        document.querySelectorAll('.viewcell-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentViewcell = btn.getAttribute('data-viewcell');
+                localStorage.setItem('selectedViewcell', currentViewcell);
+
+                document.querySelectorAll('.viewcell-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const activeSceneBtn = document.querySelector('.scene-btn.active');
+                if (activeSceneBtn) {
+                    updateScene(activeSceneBtn.getAttribute('data-scene'));
+                }
+            });
+        });
+
+        document.querySelectorAll('.fov-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                currentFOV = btn.getAttribute('data-fov');
+                localStorage.setItem('selectedFOV', currentFOV);
+
+                document.querySelectorAll('.fov-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const activeSceneBtn = document.querySelector('.scene-btn.active');
+                if (activeSceneBtn) {
+                    updateScene(activeSceneBtn.getAttribute('data-scene'));
+                }
+            });
+        });
+
+        document.querySelectorAll('.play-pause-btn').forEach(button => {
+            let isPlaying = false;
+
+            button.addEventListener('click', () => {
+                const before = document.getElementById(button.getAttribute('data-before'));
+                const after = document.getElementById(button.getAttribute('data-after'));
+
+                if (isPlaying) {
+                    before.pause();
+                    after.pause();
+                    button.textContent = 'Play';
+                }
+                else {
+                    before.play();
+                    after.play();
+                    button.textContent = 'Pause';
+                }
+                isPlaying = !isPlaying;
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedScene = localStorage.getItem('selectedScene') || 'robot_lab';
+            const savedLatency = localStorage.getItem('selectedLatency') || '20_10ms';
+            currentLatency = savedLatency;
+
+            currentViewcell = localStorage.getItem('selectedViewcell') || '1.00';
+            currentFOV = localStorage.getItem('selectedFOV') || '120';
+
+            // Update active buttons
+            document.querySelectorAll('.scene-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-scene') === savedScene);
+            });
+
+            document.querySelectorAll('.latency-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-latency') === savedLatency);
+            });
+
+            document.querySelectorAll('.viewcell-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-viewcell') === currentViewcell);
+            });
+
+            document.querySelectorAll('.fov-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-fov') === currentFOV);
+            });
+
+            updateScene(savedScene);
+        });
+    </script>
+</body>
+
+</html>

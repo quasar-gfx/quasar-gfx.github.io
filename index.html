@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>QUASAR: Quad-based Adaptive Streaming And Rendering</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="assets/css/bulma-slider.min.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/logo.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <meta property="og:site_name" content="QUASAR: Quad-based Adaptive Streaming And Rendering" />
+    <meta property="og:type" content="video.other" />
+    <meta property="og:title" content="QUASAR: Quad-based Adaptive Streaming And Rendering" />
+    <meta property="og:description" content="QUASAR: Quad-based Adaptive Streaming And Rendering, 2025." />
+
+    <script src="assets/js/video_comparison.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"></script>
+    <script src="assets/js/bulma-carousel.min.js"></script>
+    <script src="assets/js/bulma-slider.min.js"></script>
+
+    <style>
+        /* 1. Fluid aspect-ratio “before/after” container */
+        .small-bal-container {
+            width: 100%;
+            max-width: 560px;
+            aspect-ratio: 560 / 322;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .small-bal-container img,
+        .small-bal-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 2. Custom carousel arrow tweaks */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid white;
+        }
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border: solid white;
+        }
+        .carousel-control-prev-icon::after {
+            border-width: 0 4px 4px 0;
+            transform: rotate(135deg);
+            margin-left: -3px;
+        }
+        .carousel-control-next-icon::after {
+            border-width: 0 4px 4px 0;
+            transform: rotate(-45deg);
+            margin-right: -3px;
+        }
+
+        /* 3. Minor tweaks on very small screens */
+        @media (max-width: 575.98px) {
+            body {
+                font-size: 0.9rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+            .author-container h6 {
+                font-size: 0.85rem;
+            }
+            .container,
+            .container-fluid {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="highlight-clean pb-3">
+        <div class="container-fluid mb-3">
+            <h1 class="text-center mb-2">
+                <strong>QUASAR</strong>: Quad-based Adaptive Streaming And Rendering
+            </h1>
+        </div>
+
+        <!-- Centered author section -->
+        <div class="container author-container mt-4" style="padding-bottom: 10px;">
+            <div class="row justify-content-center">
+                <div class="col-auto mb-2 text-center">
+                    <h5>
+                        <a href="https://users.ece.cmu.edu/~elu2/">
+                            <strong>Edward Lu</strong>
+                        </a>
+                    </h5>
+                    <h6>Carnegie Mellon University</h6>
+                </div>
+                <div class="col-auto mb-2 text-center">
+                    <h5>
+                        <a href="https://users.ece.cmu.edu/~agr/">
+                            <strong>Anthony Rowe</strong>
+                        </a>
+                    </h5>
+                    <h6>Carnegie Mellon University</h6>
+                </div>
+            </div>
+        </div>
+        <!-- End author section -->
+    </div>
+
+    <div class="container-fluid mb-3" style="padding-bottom: 10px;">
+        <h4 class="text-center mb-2">
+            <strong>ACM Transactions on Graphics (SIGGRAPH 2025)</strong>
+        </h4>
+    </div>
+
+    <div class="container align-items-center">
+        <div class="row text-center justify-content-center">
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="assets/quasar_siggraph_2025.pdf" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/arxiv_paper.png" alt="paper" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Paper (Author's Copy)</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="results.html" class="link-block w-inline-block">
+                    <img src="assets/media/gallery.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Results Page</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="https://quasar-gfx.github.io/QUASAR/" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/docs.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Docs</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="#" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/video_logo.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Video (Coming Soon)</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="https://github.com/quasar-gfx/QUASAR" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/github.png" alt="github" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Code</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <hr class="divider" />
+        <div class="row">
+            <!-- Example 2 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div id="example2" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-2" src="assets/videos/20_10ms/robot_lab/quads/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">Quads</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                            <video id="video-before-2" src="assets/videos/20_10ms/robot_lab/color/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-2" data-after="video-after-2">Play</button>
+                </div>
+            </div>
+            <!-- Example 3 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div id="example3" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-3" src="assets/videos/20_10ms/sun_temple/quads/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">Quads</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                                <video id="video-before-3" src="assets/videos/20_10ms/sun_temple/color/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-3" data-after="video-after-3">Play</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Example 4 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div id="example4" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-4" src="assets/videos/20_10ms/viking_village/quads/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">Quads</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                                <video id="video-before-4" src="assets/videos/20_10ms/viking_village/color/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-4" data-after="video-after-4">Play</button>
+                </div>
+            </div>
+            <!-- Example 5 -->
+            <div class="col-12 col-md-6 mb-4">
+                <div id="example5" class="small-bal-container">
+                    <div class="bal-wrapper">
+                        <div class="bal-after">
+                            <video id="video-after-5" src="assets/videos/20_10ms/san_miguel/quads/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                            <div class="bal-afterPosition afterLabel">Quads</div>
+                        </div>
+                        <div class="bal-before">
+                            <div class="bal-before-inset">
+                                <video id="video-before-5" src="assets/videos/20_10ms/san_miguel/color/qr_simulator_0.50.mp4" loop muted playsinline class="img-fluid"></video>
+                                <div class="bal-beforePosition beforeLabel">Displayed Image</div>
+                            </div>
+                        </div>
+                        <div class="bal-handle">
+                            <span class="handle-left-arrow"></span>
+                            <span class="handle-right-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button class="btn btn-dark play-pause-btn" data-before="video-before-5" data-after="video-after-5">Play</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container text-center" style="max-width: 1100px;">
+            <div class="row">
+                <div class="col-12 col-md-12 mb-12">
+                    Traces above were rendered at a resolution of <strong>1920×1080</strong> at <strong>60 FPS</strong> with a simulated network latency of <strong>20±10 ms (40±20 ms RTT)</strong> (1500 frames each).<br>
+                    <br>
+                    (Reload the webpage if videos appear out of sync).
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-4 mb-4">
+                    <span style="color: rgb(208, 208, 0); font-weight:bold;">yellow quads</span> are the <b>visible layer</b>.<br>
+                    <span style="color: rgb(208, 0, 208); font-weight:bold;">magenta quads</span> are the <b>residual frames</b>.<br>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <span style="color: rgb(0, 0, 208); font-weight:bold;">blue quads</span> are the <b>1st hidden layer</b>.<br>
+                    <span style="color: rgb(0, 208, 0); font-weight:bold;">green quads</span> are the <b>2nd hidden layer</b>.<br>
+                </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <span style="color: rgb(208, 158, 208); font-weight:bold;">pink quads</span> are the <b>3rd hidden layer</b>.<br>
+                    <span style="color: rgb(208, 0, 0); font-weight:bold;">red quads</span> are <b>outside the visible frame</b>.<br>
+                </div>
+            </div>
+        </div>
+
+        <hr class="divider" />
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="font-weight-bold">Abstract</h2>
+                    <p class="text-justify">
+                        As AR/VR systems evolve to demand increasingly powerful GPUs, physically separating compute from display hardware emerges as a natural approach to enable a lightweight, comfortable form factor. Unfortunately, splitting the system into a client-server architecture leads to challenges in transporting graphical data. Simply streaming rendered images over a network suffers in terms of latency and reliability, especially given variable bandwidth. Although image-based reprojection techniques can help, they often do not support full motion parallax or disocclusion events. Instead, scene geometry can be streamed to the client, allowing local rendering of novel views. Traditionally, this has required a prohibitively large amount of interconnect bandwidth, excluding the use of practical networks.<br>
+                        This paper presents a new quad-based geometry streaming approach that is designed with compression and the ability to adjust Quality-of-Experience (QoE) in response to target network bandwidths. Our approach advances previous work by introducing a more compact data structure and a temporal compression technique that reduces data transfer overhead by up to <strong>15×</strong>, reducing bandwidth usage to as low as <strong>100 Mbps</strong>. We optimized our design for hardware video codec compatibility and support an adaptive data streaming strategy that prioritizes transmitting only the most relevant geometry updates. Our approach achieves image quality comparable to, and in many cases exceeds, state-of-the-art techniques while requiring only a fraction of the bandwidth, enabling real-time geometry streaming on commodity headsets over WiFi.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="container my-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 text-center">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video class="embed-responsive-item" autoplay muted loop playsinline>
+                        <source src="assets/videos/teaser_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <hr class="divider" />
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Methodology</h2>
+                <div class="text-center mb-4">
+                    <img src="assets/system_diagram.png" class="img-fluid" alt="System diagram" />
+                </div>
+                <p class="text-justify">
+                    Our remote rendering system uses a quad-based representation of the scene, which is optimized for streaming and rendering. It consists of two main components: a <span style="font-weight: bold;">server</span> that approximates a series of layered G-Buffers using pixel-aligned quads, and a <span style="font-weight: bold;">client</span> that reconstructs potentially visible scene geometry and renders novel views.
+                    Network latency is masked through frame extrapolation, allowing the client to render frames at a high framerate while the server transmits scene updates.
+                </p>
+                <p class="text-justify">
+                    We support client movement along a virtual <span style="font-weight: bold;">sphere-shaped viewcell</span>, meaning that the client should be able to move freely around a fixed radius from the pose of a server frame with disocclusion events captured.
+                    This lets us limit the amount of geometry that needs to be transmitted, as the server only needs to send geometry that is potientially visible from within the viewing sphere.
+                    The viewing sphere radius is an adjustable parameter that can be tuned based on available network bandwidth.
+                </p>
+                <p class="text-justify">
+                    To capture potentially visible geometry, we use a technique from prior work called <a href="https://cg.skku.edu/pub/2023-kim-siggraph-pvhv">Effective Depth Peeling (EDP)</a> to create layers of G-Buffers.
+                    EDP allows only potentially visible fragments to pass, saving bandwidth by avoiding the transmission of fully occluded geometry.
+                </p>
+                <p class="text-justify">
+                    Our quad generation algorithm is inspired by <a href="https://jozef.hladky.de/projects/QS">QuadStream</a>.
+                    For each G-Buffer layer, we fit a set of merged quads to the visible fragments.
+                    If adjacent quads lie along the same plane, they are progressively merged into a single quad.
+                    The amount of quad merging is also an adjustable parameter for bandwidth availability.
+                </p>
+                <p class="text-justify">
+                    Our main contributions include improvements to QuadStream's potential visibility and quad generation algorithms that allow us to fit quads that are more compact and easier to render, a temporal compression technique that dramatically reduces the amount of data that needs to be transmitted, and a discussion on how our technique can be extended for network rate-adaptation for Quality-of-Experience (QoE) optimization.
+                    Our approach captures <span style="font-weight: bold;">motion parallax</span>, <span style="font-weight: bold;">disocclusion events</span>, and <span style="font-weight: bold;">transparency effects</span>.
+                </p>
+                <p class="text-justify">
+                    We open-source all our code to provide system primatives and baselines to accelerate remote rendering research (see Code link at the top of the page). Our implementation supports desktops (as servers/clients), laptops (as clients), and mobile headsets (as clients).
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Temporal Compression</h2>
+                <div class="text-center mb-4">
+                    <img src="assets/temporal_compression.png" class="img-fluid" alt="Temporal compression" />
+                </div>
+                <p class="text-justify">
+                    Instead of sending entirely new sets of quads for each frame, our method selectively sends only the quads affected by scene changes and disocclusions.
+                </p>
+                <p class="text-justify">
+                    <span style="font-weight: bold;">Left to Right:</span> We fit quads to a scene using a series of G-Buffers
+                    (<span style="color: rgb(208, 208, 0); font-weight: bold;">yellow</span>), which are sent to a client to reconstruct and render
+                    (called the <span style="font-style: italic;">reference frame</span>).
+                    To reduce bandwidth usage, we selectively only transmit quads that capture scene geometry changes from the reference viewpoint
+                    (<span style="color: rgb(0, 208, 0); font-weight: bold;">green</span>) and newly revealed regions due to disocclusions
+                    (<span style="font-weight: bold;">black</span> regions). The server sends only these residual quads
+                    (<span style="color: rgb(0, 208, 0); font-weight: bold;">green</span> and <span style="color: rgb(208, 0, 208); font-weight: bold;">magenta</span>)
+                    (called the <span style="font-style: italic;">residual frame</span>), which the client integrates with the cached quads from the reference frame.
+                </p>
+                <p class="text-justify">
+                    Reference frames are periodically sent to the client at a fixed interval; every reference frame is followed by a series of residual frames.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-4">
+        <hr class="divider" />
+        <h2 class="font-weight-bold">Citation</h2>
+        <code>
+            @article{lu2025quasar,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;title={QUASAR: Quad-based Adaptive Streaming And Rendering},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;author={Lu, Edward and Rowe, Anthony},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;journal={ACM Transactions on Graphics (TOG)},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;volume={44},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;number={4},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;year={2025},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;publisher={ACM New York, NY, USA},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;url={https://doi.org/10.1145/3731213},<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;doi={10.1145/3731213},<br>
+            }
+        </code>
+    </div>
+
+    <hr class="divider" />
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p>
+                            This webpage is adapted from <a href="https://trianglesplatting.github.io/">Triangle Splatting</a> and <a href="https://dreamfusion3d.github.io/">DreamFusion</a>.
+                            We sincerely appreciate the authors for open-sourcing their code.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://polyfill.io/v3/polyfill.js?features=IntersectionObserver"></script>
+    <script src="assets/js/yall.js"></script>
+    <script>
+        yall({ observeChanges: true });
+    </script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://uploads-ssl.webflow.com/51e0d73d83d06baa7a00000f/js/webflow.fd002feec.js"></script>
+
+    <script>
+        new BeforeAfter({ id: '#example2' });
+        new BeforeAfter({ id: '#example3' });
+        new BeforeAfter({ id: '#example4' });
+        new BeforeAfter({ id: '#example5' });
+
+        document.querySelectorAll('.play-pause-btn').forEach(button => {
+            let isPlaying = false;
+
+            button.addEventListener('click', () => {
+                const before = document.getElementById(button.getAttribute('data-before'));
+                const after = document.getElementById(button.getAttribute('data-after'));
+
+                if (isPlaying) {
+                    before.pause();
+                    after.pause();
+                    button.textContent = 'Play';
+                } else {
+                    before.play();
+                    after.play();
+                    button.textContent = 'Pause';
+                }
+                isPlaying = !isPlaying;
+            });
+        });
+    </script>
+</body>
+
+</html>
