@@ -384,14 +384,25 @@
                     <span style="font-weight: bold;">Left to Right:</span> We fit quads to a scene using a series of G-Buffers
                     (<span style="color: rgb(208, 208, 0); font-weight: bold;">yellow</span>), which are sent to a client to reconstruct and render
                     (called the <span style="font-style: italic;">reference frame</span>).
-                    To reduce bandwidth usage, we selectively only transmit quads that capture scene geometry changes from the reference viewpoint
-                    (<span style="color: rgb(0, 208, 0); font-weight: bold;">green</span>) and newly revealed regions due to disocclusions
+                    To reduce bandwidth usage, we selectively only transmit quads that capture scene geometry changes (due to animations, etc.) from the reference viewpoint
+                    (<span style="color: rgb(0, 208, 0); font-weight: bold;">green</span>) and newly revealed regions due to disocclusions caused by camera movement
                     (<span style="font-weight: bold;">black</span> regions). The server sends only these residual quads
                     (<span style="color: rgb(0, 208, 0); font-weight: bold;">green</span> and <span style="color: rgb(208, 0, 208); font-weight: bold;">magenta</span>)
                     (called the <span style="font-style: italic;">residual frame</span>), which the client integrates with the cached quads from the reference frame.
                 </p>
                 <p class="text-justify">
                     Reference frames are periodically sent to the client at a fixed interval; every reference frame is followed by a series of residual frames.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="font-weight-bold">Evaluation</h2>
+                <p class="text-justify">
+                    Please refer to the <a href="results.html">Results Page</a> for visualizations and comparisons of our method against state-of-the-art techniques.
                 </p>
             </div>
         </div>

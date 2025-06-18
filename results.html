@@ -288,7 +288,7 @@
             <!-- Example 4 -->
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
-                    <h4 class="text-center mb-2" id="qs-heading"><strong>QuadStream (50 cm viewcell, box length)</strong></h4>
+                    <h4 class="text-center mb-2" id="qs-heading"><strong>QuadStream (50 cm view box length)</strong></h4>
                 </div>
                 <div id="example4" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -315,7 +315,7 @@
             <!-- Example 5 -->
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
-                    <h4 class="text-center mb-2" id="qr-heading"><strong>QUASAR (50 cm viewcell, sphere diamater)</strong></h4>
+                    <h4 class="text-center mb-2" id="qr-heading"><strong>QUASAR (50 cm view sphere diamater)</strong></h4>
                 </div>
                 <div id="example5" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -498,8 +498,8 @@
             const qrHeading = document.getElementById('qr-heading');
             const mwResolution = currentFOV === "60" ? "1080p" : "4K";
             mwHeading.innerHTML = `<strong>MeshWarp (${currentFOV}° FOV, ${mwResolution})</strong>`;
-            qsHeading.innerHTML = `<strong>QuadStream (${currentViewcell * 100} cm viewcell, box length)</strong>`;
-            qrHeading.innerHTML = `<strong>QUASAR (${currentViewcell * 100} cm viewcell, sphere diamater)</strong>`;
+            qsHeading.innerHTML = `<strong>QuadStream (${currentViewcell * 100} cm view box length)</strong>`;
+            qrHeading.innerHTML = `<strong>QUASAR (${currentViewcell * 100} cm view sphere diamater)</strong>`;
         }
 
         document.querySelectorAll('.scene-btn').forEach(btn => {
