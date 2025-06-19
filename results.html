@@ -232,6 +232,7 @@
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
                     <h4 class="text-center mb-2"><strong>ATW</strong></h4>
+                    <h5 class="text-center mb-2" id="atw-bandwidth-label">(~5 Mbps)</h5>
                 </div>
                 <div id="example2" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -259,6 +260,7 @@
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
                     <h4 class="text-center mb-2" id="mw-heading"><strong>MeshWarp (120° FOV, 4K)</strong></h4>
+                    <h5 class="text-center mb-2" id="mw-bandwidth-label">(~246 Mbps)</h5>
                 </div>
                 <div id="example3" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -289,6 +291,7 @@
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
                     <h4 class="text-center mb-2" id="qs-heading"><strong>QuadStream (50 cm view box length)</strong></h4>
+                    <h5 class="text-center mb-2" id="qs-bandwidth-label">(~1740 Mbps)</h5>
                 </div>
                 <div id="example4" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -316,6 +319,7 @@
             <div class="col-12 col-md-6 mb-4">
                 <div class="container-fluid mb-3">
                     <h4 class="text-center mb-2" id="qr-heading"><strong>QUASAR (50 cm view sphere diamater)</strong></h4>
+                    <h5 class="text-center mb-2" id="qr-bandwidth-label">(~156 Mbps)</h5>
                 </div>
                 <div id="example5" class="small-bal-container">
                     <div class="bal-wrapper">
@@ -345,7 +349,7 @@
             <div class="row">
                 <div class="col-12 col-md-12 mb-12">
                     Traces above were rendered at a resolution of <strong>1920×1080</strong> at <strong>60 FPS</strong> (1500 frames collected).<br>
-                    Each scene contains image-based lighting, along with one directional light and four point lights, all of which cast PCF shadows. View-dependent lighting is disabled.<br>
+                    Each scene contains image-based lighting, along with one directional light and four point lights, all of which cast PCF shadows. View-dependent effects are disabled.<br>
                     <br>
                     (Reload the webpage if videos appear out of sync).
                 </div>
@@ -474,6 +478,40 @@
             }
         };
 
+        function updateBandwidthLabels(sceneName) {
+            const fov = currentFOV;
+            const viewcell = currentViewcell;
+
+            document.getElementById("atw-bandwidth-label").textContent = "(~5 Mbps)";
+
+            const mwBandwidths = {
+                robot_lab: { "60": "~84 Mbps", "120": "~246 Mbps" },
+                sun_temple: { "60": "~80 Mbps", "120": "~233 Mbps" },
+                viking_village: { "60": "~97 Mbps", "120": "~244 Mbps" },
+                san_miguel: { "60": "~107 Mbps", "120": "~349 Mbps" }
+            };
+
+            document.getElementById("mw-bandwidth-label").textContent = `(${mwBandwidths[sceneName][fov]})`;
+
+            const qsBandwidths = {
+                robot_lab: { "0.25": "~1602 Mbps", "0.50": "~1740 Mbps", "1.00": "~1961 Mbps" },
+                sun_temple: { "0.25": "~944 Mbps", "0.50": "~1050 Mbps", "1.00": "~1225 Mbps" },
+                viking_village: { "0.25": "~3132 Mbps", "0.50": "~3365 Mbps", "1.00": "~3741 Mbps" },
+                san_miguel: { "0.25": "~4125 Mbps", "0.50": "~4581 Mbps", "1.00": "~5192 Mbps" }
+            };
+
+            document.getElementById("qs-bandwidth-label").textContent = `(${qsBandwidths[sceneName][viewcell]})`;
+
+            const qrBandwidths = {
+                robot_lab: { "0.25": "~152 Mbps", "0.50": "~156 Mbps", "1.00": "~159 Mbps" },
+                sun_temple: { "0.25": "~92 Mbps", "0.50": "~99 Mbps", "1.00": "~108 Mbps" },
+                viking_village: { "0.25": "~223 Mbps", "0.50": "~238 Mbps", "1.00": "~253 Mbps" },
+                san_miguel: { "0.25": "~607 Mbps", "0.50": "~619 Mbps", "1.00": "~635 Mbps" }
+            };
+
+            document.getElementById("qr-bandwidth-label").textContent = `(${qrBandwidths[sceneName][viewcell]})`;
+        }
+
         function updateScene(sceneName) {
             const methods = getMethods();
             methods.forEach(method => {
@@ -500,6 +538,8 @@
             mwHeading.innerHTML = `<strong>MeshWarp (${currentFOV}° FOV, ${mwResolution})</strong>`;
             qsHeading.innerHTML = `<strong>QuadStream (${currentViewcell * 100} cm view box length)</strong>`;
             qrHeading.innerHTML = `<strong>QUASAR (${currentViewcell * 100} cm view sphere diamater)</strong>`;
+
+            updateBandwidthLabels(sceneName);
         }
 
         document.querySelectorAll('.scene-btn').forEach(btn => {

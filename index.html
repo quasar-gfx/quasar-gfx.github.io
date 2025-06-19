@@ -318,18 +318,32 @@
         </div>
     </div>
 
-    <!-- <div class="container my-4">
+    <div class="container my-4">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8 text-center">
+            <div class="col-12 col-md-6 mb-4">
                 <div class="embed-responsive embed-responsive-16by9">
                     <video class="embed-responsive-item" autoplay muted loop playsinline>
-                        <source src="assets/videos/teaser_video.mp4" type="video/mp4">
+                        <source src="assets/videos/vr/qr_vr_rl.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
             </div>
+
+            <div class="col-12 col-md-6 mb-4">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <video class="embed-responsive-item" autoplay muted loop playsinline>
+                        <source src="assets/videos/vr/qr_vr_st.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <p class="text-center">
+                Our quad-based representation achieves up to <span style="font-weight: bold;">75 FPS on mobile GPUs</span> and <span style="font-weight: bold;">6000 FPS on high-end GPUs</span> at 1920×1080 resolution.<br>
+                The videos above show a frozen frame rendered on a Meta Quest 3 VR headset.
+                As the user moves within the viewcell, disocclusion events are captured, allowing scene viewing from different angles with motion parallax.
+            </p>
         </div>
-    </div> -->
+    </div>
 
     <hr class="divider" />
     <div class="container mb-4">
@@ -360,7 +374,7 @@
                 </p>
                 <p class="text-justify">
                     Our main contributions include improvements to QuadStream's potential visibility and quad generation algorithms that allow us to fit quads that are more compact and easier to render, a temporal compression technique that dramatically reduces the amount of data that needs to be transmitted, and a discussion on how our technique can be extended for network rate-adaptation for Quality-of-Experience (QoE) optimization.
-                    Our approach captures <span style="font-weight: bold;">motion parallax</span>, <span style="font-weight: bold;">disocclusion events</span>, and <span style="font-weight: bold;">transparency effects</span>.
+                    Our approach can capture <span style="font-weight: bold;">motion parallax</span>, <span style="font-weight: bold;">disocclusion events</span>, and <span style="font-weight: bold;">transparency effects</span>.
                 </p>
                 <p class="text-justify">
                     We open-source all our code to provide system primatives and baselines to accelerate remote rendering research (see Code link at the top of the page). Our implementation supports desktops (as servers/clients), laptops (as clients), and mobile headsets (as clients).
