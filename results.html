@@ -139,13 +139,6 @@
     <div class="container align-items-center">
         <div class="row text-center justify-content-center">
             <div class="col-6 col-sm-2 mb-2">
-                <a href="assets/quasar_siggraph_2025.pdf" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/arxiv_paper.png" alt="paper" class="img-fluid" style="height:55px" />
-                </a>
-                <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Paper (Author's Copy)</strong></div>
-            </div>
-            <div class="col-6 col-sm-2 mb-2">
                 <a href="index.html" class="link-block w-inline-block">
                     <img src="assets/media/home.png" alt="video" class="img-fluid" style="height:55px" />
                 </a>
@@ -153,18 +146,18 @@
                 <div class="text-block-2"><strong class="bold-text-nerf_v2">Main Page</strong></div>
             </div>
             <div class="col-6 col-sm-2 mb-2">
-                <a href="https://quasar-gfx.github.io/QUASAR/" target="_blank" class="link-block w-inline-block">
-                    <img src="assets/media/docs.png" alt="video" class="img-fluid" style="height:55px" />
+                <a href="assets/quasar_siggraph_2025.pdf" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/arxiv_paper.png" alt="paper" class="img-fluid" style="height:55px" />
                 </a>
                 <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Docs</strong></div>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Paper (Author's Copy)</strong></div>
             </div>
             <div class="col-6 col-sm-2 mb-2">
-                <a href="#" target="_blank" class="link-block w-inline-block">
+                <a href="https://www.youtube.com/watch?v=vWF89pXQkC0" target="_blank" class="link-block w-inline-block">
                     <img src="assets/media/video_logo.png" alt="video" class="img-fluid" style="height:55px" />
                 </a>
                 <br>
-                <div class="text-block-2"><strong class="bold-text-nerf_v2">Video (Coming Soon)</strong></div>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Video</strong></div>
             </div>
             <div class="col-6 col-sm-2 mb-2">
                 <a href="https://github.com/quasar-gfx/QUASAR" target="_blank" class="link-block w-inline-block">
@@ -172,6 +165,13 @@
                 </a>
                 <br>
                 <div class="text-block-2"><strong class="bold-text-nerf_v2">Code</strong></div>
+            </div>
+            <div class="col-6 col-sm-2 mb-2">
+                <a href="https://quasar-gfx.github.io/QUASAR/" target="_blank" class="link-block w-inline-block">
+                    <img src="assets/media/docs.png" alt="video" class="img-fluid" style="height:55px" />
+                </a>
+                <br>
+                <div class="text-block-2"><strong class="bold-text-nerf_v2">Documentation</strong></div>
             </div>
         </div>
     </div>
@@ -623,7 +623,6 @@
             const savedScene = localStorage.getItem('selectedScene') || 'robot_lab';
             const savedLatency = localStorage.getItem('selectedLatency') || '20_10ms';
             currentLatency = savedLatency;
-
             currentViewcell = localStorage.getItem('selectedViewcell') || '1.00';
             currentFOV = localStorage.getItem('selectedFOV') || '120';
 
@@ -631,15 +630,12 @@
             document.querySelectorAll('.scene-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-scene') === savedScene);
             });
-
             document.querySelectorAll('.latency-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-latency') === savedLatency);
             });
-
             document.querySelectorAll('.viewcell-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-viewcell') === currentViewcell);
             });
-
             document.querySelectorAll('.fov-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-fov') === currentFOV);
             });
