@@ -28,6 +28,13 @@
     <script src="assets/js/bulma-slider.min.js"></script>
 
     <style>
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
         /* 1. Fluid aspect-ratio “before/after” container */
         .small-bal-container {
             width: 100%;
@@ -354,7 +361,7 @@
                     <img src="assets/system_diagram.png" class="img-fluid" alt="System diagram" />
                 </div>
                 <p class="text-justify">
-                    Our remote rendering system uses a quad-based representation of the scene, which is optimized for streaming and rendering. It consists of two main components: a <span style="font-weight: bold;">server</span> that approximates a series of layered G-Buffers using pixel-aligned quads, and a <span style="font-weight: bold;">client</span> that reconstructs potentially visible scene geometry and renders novel views.
+                    Our remote rendering system uses a <span style="font-weight: bold;">quad-based representation</span> of the scene, which is optimized for streaming and rendering. It consists of two main components: a <span style="font-weight: bold;">server</span> that approximates a series of layered G-Buffers using pixel-aligned quads, and a <span style="font-weight: bold;">client</span> that reconstructs potentially visible scene geometry and renders novel views.
                     Network latency is masked through frame extrapolation, allowing the client to render frames at a high framerate while the server transmits scene updates.
                 </p>
                 <p class="text-justify">
@@ -473,30 +480,60 @@
         new BeforeAfter({ id: '#example4' });
         new BeforeAfter({ id: '#example5' });
 
-        document.querySelectorAll('.play-pause-btn').forEach(button => {
-            let isPlaying = false;
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load all videos explicitly
+            document.querySelectorAll('video').forEach(video => {
+                video.load();
+            });
 
-            button.addEventListener('click', () => {
+            document.querySelectorAll('.play-pause-btn').forEach(button => {
+                let isPlaying = false;
+                let videosReady = { before: false, after: false };
+
                 const before = document.getElementById(button.getAttribute('data-before'));
                 const after = document.getElementById(button.getAttribute('data-after'));
 
-                if (isPlaying) {
-                    before.pause();
-                    after.pause();
-                    button.textContent = 'Play';
-                } else {
-                    before.play();
-                    after.play();
-                    button.textContent = 'Pause';
-                }
-                isPlaying = !isPlaying;
-            });
-        });
+                // Set button to loading initially
+                button.textContent = 'Loading Videos...';
+                button.disabled = true;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Load videos explicitly
-            document.querySelectorAll('video').forEach(video => {
-                video.load();
+                const checkVideosReady = () => {
+                    if (videosReady.before && videosReady.after) {
+                        button.textContent = 'Play';
+                        button.disabled = false;
+                    }
+                };
+
+                const onBeforeReady = () => {
+                    videosReady.before = true;
+                    before.removeEventListener('canplaythrough', onBeforeReady);
+                    checkVideosReady();
+                };
+
+                const onAfterReady = () => {
+                    videosReady.after = true;
+                    after.removeEventListener('canplaythrough', onAfterReady);
+                    checkVideosReady();
+                };
+
+                before.addEventListener('canplaythrough', onBeforeReady);
+                after.addEventListener('canplaythrough', onAfterReady);
+
+                button.addEventListener('click', () => {
+                    if (!videosReady.before || !videosReady.after) return;
+
+                    if (isPlaying) {
+                        before.pause();
+                        after.pause();
+                        button.textContent = 'Play';
+                    }
+                    else {
+                        before.play();
+                        after.play();
+                        button.textContent = 'Pause';
+                    }
+                    isPlaying = !isPlaying;
+                });
             });
         });
     </script>

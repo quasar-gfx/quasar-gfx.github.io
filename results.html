@@ -28,6 +28,13 @@
     <script src="assets/js/bulma-slider.min.js"></script>
 
     <style>
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
         /* 1. Fluid aspect-ratio “before/after” container */
         .small-bal-container {
             width: 100%;
@@ -600,21 +607,55 @@
 
         document.querySelectorAll('.play-pause-btn').forEach(button => {
             let isPlaying = false;
+            const beforeId = button.getAttribute('data-before');
+            const afterId = button.getAttribute('data-after');
+            const before = document.getElementById(beforeId);
+            const after = document.getElementById(afterId);
+
+            // Set button to loading initially
+            button.textContent = 'Loading Videos...';
+            button.disabled = true;
+
+            let videosReady = {
+                before: false,
+                after: false
+            };
+
+            const checkVideosReady = () => {
+                if (videosReady.before && videosReady.after) {
+                    button.textContent = 'Play';
+                    button.disabled = false;
+                }
+            };
+
+            const onBeforeReady = () => {
+                videosReady.before = true;
+                before.removeEventListener('canplaythrough', onBeforeReady);
+                checkVideosReady();
+            };
+
+            const onAfterReady = () => {
+                videosReady.after = true;
+                after.removeEventListener('canplaythrough', onAfterReady);
+                checkVideosReady();
+            };
+
+            before.addEventListener('canplaythrough', onBeforeReady);
+            after.addEventListener('canplaythrough', onAfterReady);
 
             button.addEventListener('click', () => {
-                const before = document.getElementById(button.getAttribute('data-before'));
-                const after = document.getElementById(button.getAttribute('data-after'));
+                if (!videosReady.before || !videosReady.after) return;
 
                 if (isPlaying) {
                     before.pause();
                     after.pause();
                     button.textContent = 'Play';
-                }
-                else {
+                } else {
                     before.play();
                     after.play();
                     button.textContent = 'Pause';
                 }
+
                 isPlaying = !isPlaying;
             });
         });
